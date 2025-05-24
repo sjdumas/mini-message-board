@@ -8,4 +8,4 @@ This is a required project - Mini Message Board - for [The Odin Project](https:/
 - EJS
 
 ## Demo
-Check out the [live demo](https://yourdomain.com).
+Check out the [live demo](https://mini-board.sjdumas.com).
