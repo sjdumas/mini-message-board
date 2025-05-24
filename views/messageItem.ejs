@@ -1,0 +1,21 @@
+<!-- messageItem.ejs -->
+<li class="message-card">
+	<img
+		src="https://ui-avatars.com/api/?name=<%= encodeURIComponent(message.user) %>&background=random"
+		alt="<%= message.user %> avatar"
+		class="avatar"
+	/>
+
+	<div>
+		<strong><%= message.user %></strong>
+		<p><%= message.text %></p>
+		<small>Posted on <%= message.added.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }) %></small>
+		<br>
+		<a href="/message/<%= message.id %>" class="view-link">
+			<span class="material-icons" aria-hidden="true">visibility</span>
+			View Post
+		</a>
+	</div>
+</li>
+
+

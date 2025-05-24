@@ -1,0 +1,20 @@
+<!-- navbar.ejs -->
+<nav>
+	<div class="nav-container">
+		<a href="/">
+			<img src="/logo.svg" alt="Logo" class="logo" />
+		</a>
+		<ul>
+			<% for (let i = 0; i < links.length; i++) { %>
+			<li>
+				<a href="<%= links[i].href %>">
+					<% if (links[i].text === "New Message") { %>
+						<span class="material-icons" aria-hidden="true">edit</span>
+					<% } %>
+					<span><%= links[i].text %></span>
+				</a>
+			</li>
+			<% } %>
+		</ul>
+	</div>
+</nav>

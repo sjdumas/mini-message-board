@@ -1,0 +1,25 @@
+<!-- form.ejs -->
+<html>
+	<head>
+		<link rel="stylesheet" href="/style.css">
+		<title><%= title %> | Mini Message Board</title>
+	</head>
+	<body>
+		<div class="container">
+			<%- include('navbar', {links: links}) %>
+			<div class="message-board">
+				<h1><%= title %></h1>
+				<div class="form-container">
+					<form method="POST" action="/new">
+						<label for="user">Your Name</label>
+						<input type="text" id="user" name="user" required>
+						<label for="text">Your Message</label>
+						<textarea id="text" name="text" rows="6" required></textarea>
+						<button type="submit">Send Message</button>
+					</form>
+				</div>
+			</div>
+			<%- include('footer') %>
+		</div>
+	</body>
+</html>

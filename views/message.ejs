@@ -1,0 +1,27 @@
+<!-- message.ejs -->
+<html>
+	<head>
+		<title><%= title %></title>
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<div class="container">
+			<%- include('navbar', { links: links }) %>
+			<div class="message-board">
+				<h1><%= title %></h1>
+				<div class="user-avatar">
+					<img
+						src="https://ui-avatars.com/api/?name=<%= encodeURIComponent(message.user) %>&background=random"
+						alt="<%= message.user %> avatar"
+						class="avatar"
+					/>
+				</div>
+				<p><strong>User:</strong> <%= message.user %></p>
+				<p><strong>Message:</strong> <%= message.text %></p>
+				<p><strong>Posted on:</strong> <%= message.added.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }) %></p>
+				<p class="spacer"><a href="/">← Back to Posts</a></p>
+			</div>
+			<%- include('footer') %>
+		</div>
+	</body>
+</html>
