@@ -202,7 +202,8 @@ li {
 	padding: 1em 0;
 }
 
-.message-board {
+.message-board,
+.error {
 	padding: 1.5em 0;
 }
 
@@ -238,6 +239,25 @@ li {
 
 .message-card:hover {
 	border: 1px solid var(--color-primary);
+}
+
+.error {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.error-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+	margin-top: 1em;
+}
+
+.error-img {
+	max-height: 400px;
+	max-width: 400px;
 }
 
 small {

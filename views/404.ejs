@@ -1,0 +1,24 @@
+<!-- views/404.ejs -->
+<html>
+	<head>
+		<title><%= title %> | Mini Message Board</title>
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<div class="container">
+			<%- include('navbar', { links: links }) %>
+			<div class="error">
+				<h1>404 – Page Not Found</h1>
+				<div class="error-content">
+					<img src="/404-img.svg" alt="Error" class="error-img" />
+					<h2>Sorry, the page you were looking for doesn't exist.</h2>
+					<a href="/" class="view-link">
+						<span class="material-icons" aria-hidden="true">arrow_back</span>
+						Return Home
+					</a>
+				</div>
+			</div>
+			<%- include('footer') %>
+		</div>
+	</body>
+</html>
