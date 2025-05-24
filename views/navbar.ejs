@@ -8,8 +8,10 @@
 			<% for (let i = 0; i < links.length; i++) { %>
 			<li>
 				<a href="<%= links[i].href %>">
-					<% if (links[i].text === "New Message") { %>
-						<span class="material-icons" aria-hidden="true">edit</span>
+					<% if (links[i].text === "Home") { %>
+						<span class="material-icons" aria-hidden="true">home</span>
+					<% } else if (links[i].text === "New Message") { %>
+						<span class="material-icons" aria-hidden="true">add</span>
 					<% } %>
 					<span><%= links[i].text %></span>
 				</a>

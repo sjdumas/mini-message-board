@@ -8,4 +8,4 @@ This is a required project - Mini Message Board - for [The Odin Project](https:/
 - EJS
 
 ## Demo
-Check out the [live demo](https://memory-card-indol-xi.vercel.app).
+Check out the [live demo](https://yourdomain.com).
