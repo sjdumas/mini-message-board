@@ -40,11 +40,12 @@ const formatDate = (date) => {
 
 app.get("/", (req, res) => {
 	const formattedMessages = messages
-		.toSorted((a, b) => b.added - a.added)
-		.map((msg) => ({
-			...msg,
-			formattedDate: formatDate(msg.added),
-		}));
+	.slice() // make a copy
+	.sort((a, b) => b.added - a.added) // sort newest first
+	.map((msg) => ({
+		...msg,
+		formattedDate: formatDate(msg.added),
+	}));
 
 	res.render("index", { 
 		title: "Mini Message Board",
