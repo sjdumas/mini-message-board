@@ -11,12 +11,12 @@
 				<h1><%= title %></h1>
 				<div class="user-avatar">
 					<img
-						src="https://ui-avatars.com/api/?name=<%= encodeURIComponent(message.user) %>&background=random"
-						alt="<%= message.user %> avatar"
+						src="https://ui-avatars.com/api/?name=<%= encodeURIComponent(message.username) %>&background=random"
+						alt="<%= message.username %> avatar"
 						class="avatar"
 					/>
 				</div>
-				<p><strong>User:</strong> <%= message.user %></p>
+				<p><strong>User:</strong> <%= message.username %></p>
 				<p><strong>Message:</strong> <%= message.text %></p>
 				<p><strong>Posted on:</strong> <%= message.added.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }) %></p>
 				<p class="spacer"><a href="/">← Back to Posts</a></p>

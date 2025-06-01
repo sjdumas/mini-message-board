@@ -39,6 +39,20 @@ const formatDate = (date) => {
 	});
 };
 
+app.get("/seed", async (req, res, next) => {
+	try {
+		await pool.query(`
+      		INSERT INTO messages (username, text)
+      		VALUES
+        		('Armando', 'Hi there!'),
+        		('Charles', 'Hello world');
+    `);
+		res.send("Database seeded successfully!");
+	} catch (err) {
+		next(err);
+	}
+});
+
 app.get("/", async (req, res, next) => {
 	try {
 		const result = await pool.query("SELECT * FROM messages ORDER BY added DESC");
@@ -81,7 +95,6 @@ app.post("/new", async (req, res, next) => {
 		next(error);
 	}
 });
-
 
 // Error handling - 500 and 404
 app.use((err, req, res, next) => {
