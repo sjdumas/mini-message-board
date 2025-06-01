@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("node:path");
+const pool = require("./db");
 const assetsPath = path.join(__dirname, "public");
 
 app.use(express.static(assetsPath));
@@ -14,7 +15,7 @@ const links = [
 	{ href: "/new", text: "New Message" },
 ];
 
-let messageId = 1;
+/* let messageId = 1;
 
 const messages = [
 	{
@@ -29,7 +30,7 @@ const messages = [
 		user: "Charles",
 		added: new Date()
 	},
-];
+]; */
 
 const formatDate = (date) => {
 	return date.toLocaleString("en-US", {
@@ -38,53 +39,49 @@ const formatDate = (date) => {
 	});
 };
 
-app.get("/", (req, res) => {
-	const formattedMessages = messages
-		.slice() // make a copy
-		.sort((a, b) => b.added - a.added) // sort newest first
-		.map((msg) => ({
+app.get("/", async (req, res, next) => {
+	try {
+		const result = await pool.query("SELECT * FROM messages ORDER BY added DESC");
+		const formattedMessages = result.rows.map((msg) => ({
 			...msg,
-			formattedDate: formatDate(msg.added),
+			formattedDate: formatDate(new Date(msg.added)),
 		}));
-
-	res.render("index", {
-		title: "Mini Message Board",
-		links: links,
-		messages: formattedMessages
-	});
+		res.render("index", { title: "Mini Message Board", links, messages: formattedMessages });
+	} catch (error) {
+		next(error);
+	}
 });
 
 app.get("/new", (req, res) => {
-	res.render("form", {
-		title: "New Message",
-		links: links
-	});
+	res.render("form", { title: "New Message", links });
 });
 
-app.get("/message/:id", (req, res) => {
-	const message = messages.find(msg => msg.id === parseInt(req.params.id));
-	if (!message) return res.status(404).send("Message not found");
+app.get("/message/:id", async (req, res, next) => {
+	try {
+		const result = await pool.query("SELECT * FROM messages WHERE id = $1", [req.params.id]);
+		const message = result.rows[0];
+		if (!message) return res.status(404).send("Message not found");
 
-	res.render("message", {
-		title: "Message Detail",
-		message: message,
-		links: links
-	});
+		res.render("message", {
+			title: "Message Detail",
+			message,
+			links
+		});
+	} catch (error) {
+		next(error);
+	}
 });
 
-app.post("/new", (req, res) => {
-	const messageUser = req.body.user;
-	const messageText = req.body.text;
-
-	messages.push({
-		id: messageId++,
-		text: messageText,
-		user: messageUser,
-		added: new Date()
-	});
-
-	res.redirect("/");
+app.post("/new", async (req, res, next) => {
+	const { user, text } = req.body;
+	try {
+		await pool.query("INSERT INTO messages (username, text) VALUES ($1, $2)", [user, text]);
+		res.redirect("/");
+	} catch (error) {
+		next(error);
+	}
 });
+
 
 // Error handling - 500 and 404
 app.use((err, req, res, next) => {
